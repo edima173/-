@@ -69,18 +69,17 @@ button { font-family: inherit; }
 .logo-container{
   display: flex;
   align-items: center;
-  gap: 12px;
   margin-bottom: 32px;
-  padding-left: 8px;
+  justify-content: center;
+  width: 100%;
 }
-.logo-svg { width: 40px; height: 40px; }
-.logo-text {
-  font-size: 20px;
-  font-weight: 800;
-  color: #1e3a8a;
-  letter-spacing: -0.5px;
+/* Стиль для картинки логотипа */
+.logo-img {
+  height: 52px; 
+  width: auto; 
+  max-width: 100%; 
+  object-fit: contain;
 }
-.logo-text span { color: var(--primary); }
 
 .nav-menu { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .nav-item {
@@ -337,6 +336,9 @@ button { font-family: inherit; }
   
   /* Увеличенная карта на телефоне */
   #map { height: 400px; }
+
+  /* Уменьшаем логотип на мобильных */
+  .mobile-header .logo-img { height: 32px; }
 }
 </style>
 </head>
@@ -344,7 +346,8 @@ button { font-family: inherit; }
 
 <!-- МОБИЛЬНАЯ ШАПКА -->
 <div class="mobile-header">
-  <div class="logo-text" style="font-size:18px;">Саха<span>Кружок</span></div>
+  <!-- Здесь используется ваш логотип -->
+  <img src="logo.png" alt="СахаКружок" class="logo-img">
   <button id="mobileMenuBtn">☰</button>
 </div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -352,13 +355,8 @@ button { font-family: inherit; }
 <!-- ================= САЙДБАР ================= -->
 <aside class="sidebar" id="sidebar">
   <div class="logo-container">
-    <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50 85C50 85 20 70 10 50C15 45 25 40 35 45C40 35 50 25 60 30C70 35 75 45 80 55C85 45 95 40 95 40C90 65 60 85 50 85Z" fill="#2563eb"/>
-      <path d="M50 85C50 85 30 65 25 55C30 50 40 55 45 60C48 50 55 40 65 45C70 50 70 60 65 70C60 75 55 80 50 85Z" fill="#60a5fa"/>
-      <circle cx="50" cy="20" r="8" fill="#2563eb"/>
-      <path d="M50 10L52 16H58L53 20L55 26L50 22L45 26L47 20L42 16H48L50 10Z" fill="#2563eb"/>
-    </svg>
-    <div class="logo-text">Саха<span>Кружок</span></div>
+    <!-- Здесь используется ваш логотип -->
+    <img src="logo.png" alt="СахаКружок" class="logo-img">
   </div>
 
   <nav class="nav-menu" id="navMenu">
