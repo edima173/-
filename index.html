@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="СахаКружок — единая цифровая платформа дополнительного образования Мегино-Кангаласского улуса">
+<title>СахаКружок — единая платформа дополнительного образования</title>
+<style>
+:root{
+  --bg:#eef3fa; --card:#ffffff; --ink:#0f2035; --muted:#6b7c93;
+  --primary:#2563eb; --primary-2:#1d4ed8; --accent:#14b8a6; --warn:#f59e0b; --danger:#ef4444;
+  --line:#dfe7f2; --radius:16px; --shadow:0 6px 24px rgba(15,32,53,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0 0 .4em; line-height:1.2}
+p{margin:0 0 .8em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.hide{display:none !important}
+
+/* ---------- HEADER ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.topbar-inner{display:flex;align-items:center;gap:16px;padding:10px 18px;max-width:1180px;margin:0 auto;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;
+  background:linear-gradient(135deg,#2563eb,#14b8a6);box-shadow:0 6px 16px rgba(37,99,235,.28);
+}
+.brand-title{font-weight:800;font-size:18px;letter-spacing:-.2px}
+.brand-sub{font-size:11.5px;color:var(--muted)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.nav-btn{
+  border:1px solid transparent;background:transparent;color:var(--ink);font:inherit;font-size:14px;
+  padding:8px 13px;border-radius:11px;cursor:pointer;transition:.15s;font-weight:600;
+}
+.nav-btn:hover{background:#eaf1fd}
+.nav-btn.active{background:var(--primary);color:#fff;box-shadow:0 6px 14px rgba(37,99,235,.28)}
+
+/* ---------- PAGES ---------- */
+.page{display:none;padding:26px 0 80px}
+.page.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.hero{
+  background:linear-gradient(120deg,#12294a 0%,#1d4ed8 55%,#0f9e94 100%);
+  color:#fff;border-radius:24px;padding:38px 34px;position:relative;overflow:hidden;box-shadow:var(--shadow);
+}
+.hero:after{
+  content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%);
+}
+.hero h1{font-size:34px;letter-spacing:-.7px;margin-bottom:10px}
+.hero p{max-width:660px;opacity:.94}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.btn{
+  border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:600;
+  padding:10px 16px;border-radius:12px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:7px;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(15,32,53,.1)}
+.btn:active{transform:none}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn.primary:hover{background:var(--primary-2)}
+.btn.ghost{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.45);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.24)}
+.btn.accent{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.danger{background:#fff;border-color:#f3c6c6;color:var(--danger)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.card h3{font-size:16px}
+.ico{font-size:24px;margin-bottom:6px}
+
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:26px 0 14px;flex-wrap:wrap}
+.section-title h2{font-size:22px;letter-spacing:-.4px}
+
+/* ---------- CATALOG ---------- */
+.filters{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);
+}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.field input,.field select{
+  font:inherit;font-size:14px;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:#fbfdff;color:var(--ink);outline:none;
+}
+.field input:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.check{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;cursor:pointer;padding-top:22px}
+
+.prog{display:flex;flex-direction:column;gap:8px;transition:.18s}
+.prog:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(15,32,53,.12)}
+.prog-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;background:#e8f0fe;color:#1d4ed8;letter-spacing:.2px}
+.free{font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.free.ok{background:#e6f8f2;color:#0d8a6f}
+.free.no{background:#fdecec;color:#c22b2b}
+.meta{display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--muted)}
+.actions{display:flex;gap:8px;margin-top:auto;padding-top:10px}
+.actions .btn{flex:1;justify-content:center;font-size:13.5px;padding:9px 10px}
+.empty{padding:34px;text-align:center;color:var(--muted);background:#fff;border-radius:var(--radius);border:1px dashed var(--line)}
+
+/* ---------- QUIZ ---------- */
+.quiz{max-width:760px;margin:0 auto}
+.progress{height:8px;background:#e4ecf8;border-radius:999px;overflow:hidden;margin-bottom:18px}
+.progress > i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#14b8a6);width:0;transition:.3s}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.chip{
+  border:1px solid var(--line);background:#fff;font:inherit;font-size:14px;font-weight:600;color:var(--ink);
+  padding:9px 15px;border-radius:999px;cursor:pointer;transition:.15s;
+}
+.chip:hover{border-color:#b9cdf0;background:#f6faff}
+.chip.on{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 6px 14px rgba(37,99,235,.25)}
+.quiz-input{font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;width:100%;max-width:220px;outline:none}
+.quiz-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.quiz-nav{display:flex;gap:10px;justify-content:space-between;margin-top:22px}
+.match{font-size:12px;font-weight:800;color:#0d8a6f;background:#e6f8f2;padding:4px 9px;border-radius:999px}
+
+/* ---------- MAP ---------- */
+.map-canvas{
+  position:relative;aspect-ratio:16/9.5;border-radius:var(--radius);overflow:hidden;
+  background:linear-gradient(160deg,#f0f8ff,#e2f0fb);border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.map-svg{position:absolute;inset:0;width:100%;height:100%}
+.marker{
+  position:absolute;transform:translate(-50%,-50%);border:none;background:transparent;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;font:inherit;padding:0;transition:.15s;
+}
+.marker:hover{transform:translate(-50%,-50%) scale(1.08)}
+.marker.dim{opacity:.28;pointer-events:none}
+.dot{
+  width:22px;height:22px;border-radius:50%;background:var(--primary);border:3px solid #fff;
+  box-shadow:0 4px 12px rgba(37,99,235,.4);position:relative;display:grid;place-items:center;
+  font-size:10px;font-weight:800;color:#fff;
+}
+.marker.sel .dot{background:var(--accent);box-shadow:0 0 0 6px rgba(20,184,166,.25),0 4px 12px rgba(20,184,166,.5)}
+.lbl{font-size:11.5px;font-weight:700;background:#fff;padding:2px 7px;border-radius:999px;box-shadow:0 2px 8px rgba(15,32,53,.12);white-space:nowrap}
+
+/* ---------- DASHBOARD ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:26px;letter-spacing:-.6px}
+.stat span{font-size:12.5px;color:var(--muted);font-weight:600}
+.bar-row{display:grid;grid-template-columns:150px 1fr 46px;gap:10px;align-items:center;margin-bottom:9px;font-size:13.5px}
+.bar-track{height:11px;background:#e9f0fa;border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#14b8a6);width:0;transition:.6s}
+.bar-val{text-align:right;font-weight:800;font-size:13px}
+.note{background:#fff8e6;border:1px solid #f7e0a8;border-radius:12px;padding:12px 14px;font-size:13.5px}
+
+/* ---------- MODAL ---------- */
+.overlay{
+  position:fixed;inset:0;background:rgba(9,20,35,.5);backdrop-filter:blur(3px);
+  display:none;align-items:center;justify-content:center;padding:18px;z-index:200;
+}
+.overlay.open{display:flex}
+.modal{
+  background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:88vh;overflow:auto;
+  padding:26px;box-shadow:0 24px 60px rgba(9,20,35,.35);animation:pop .22s ease;
+}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+.modal-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}
+.icon-btn{border:none;background:#f0f4fa;width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:16px;color:var(--muted)}
+.icon-btn:hover{background:#e3ebf6;color:var(--ink)}
+.info-row{display:grid;grid-template-columns:150px 1fr;gap:8px;font-size:14px;padding:7px 0;border-bottom:1px dashed #eef2f8}
+.info-row span:first-child{color:var(--muted);font-weight:600}
+
+/* ---------- AI ---------- */
+.fab{
+  position:fixed;right:22px;bottom:22px;z-index:150;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#2563eb,#14b8a6);color:#fff;font:inherit;font-weight:800;font-size:14px;
+  padding:15px 20px;border-radius:999px;display:flex;align-items:center;gap:9px;
+  box-shadow:0 12px 30px rgba(37,99,235,.45);transition:.18s;
+}
+.fab:hover{transform:translateY(-2px) scale(1.02)}
+.fab .pulse{width:9px;height:9px;border-radius:50%;background:#a7f3d0;box-shadow:0 0 0 0 rgba(167,243,208,.8);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(167,243,208,0)}100%{box-shadow:0 0 0 0 rgba(167,243,208,0)}}
+
+.ai-panel{
+  position:fixed;right:22px;bottom:22px;z-index:160;width:390px;max-width:calc(100vw - 28px);
+  height:min(620px,calc(100vh - 44px));background:#fff;border-radius:20px;border:1px solid var(--line);
+  box-shadow:0 24px 60px rgba(9,20,35,.3);display:none;flex-direction:column;overflow:hidden;
+}
+.ai-panel.open{display:flex;animation:pop .2s ease}
+.ai-head{
+  padding:14px 16px;background:linear-gradient(120deg,#12294a,#1d4ed8);color:#fff;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.ai-head .icon-btn{background:rgba(255,255,255,.18);color:#fff}
+.ai-head .icon-btn:hover{background:rgba(255,255,255,.3);color:#fff}
+.ai-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#f7fafd}
+.ai-msg{max-width:88%;padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.45;word-wrap:break-word}
+.ai-msg.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px;align-self:flex-start;box-shadow:0 2px 8px rgba(15,32,53,.05)}
+.ai-msg.me{background:var(--primary);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.ai-msg .mini{display:block;font-size:12px;color:var(--muted);margin-top:6px}
+.ai-msg .btn{font-size:12.5px;padding:7px 11px;border-radius:9px;margin:7px 6px 0 0}
+.ai-chips{display:flex;gap:6px;overflow-x:auto;padding:9px 12px;background:#fff;border-top:1px solid var(--line);flex-shrink:0}
+.ai-chips .chip{font-size:12.5px;padding:7px 12px;white-space:nowrap}
+.ai-input{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:#fff;flex-shrink:0}
+.ai-input input{flex:1;font:inherit;font-size:14px;padding:10px 13px;border:1px solid var(--line);border-radius:11px;outline:none}
+.ai-input input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.ai-input button{border:none;background:var(--primary);color:#fff;width:42px;border-radius:11px;cursor:pointer;font-size:17px;font-weight:700}
+.ai-input button:hover{background:var(--primary-2)}
+
+/* ---------- TOAST ---------- */
+#toast{
+  position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);z-index:300;
+  background:#0f2035;color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;
+  opacity:0;pointer-events:none;transition:.28s;box-shadow:0 12px 30px rgba(9,20,35,.35);
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:640px){
+  .hero{padding:26px 20px}
+  .hero h1{font-size:25px}
+  .nav{width:100%;margin-left:0;overflow-x:auto;flex-wrap:nowrap}
+  .bar-row{grid-template-columns:104px 1fr 40px;font-size:12.5px}
+  .info-row{grid-template-columns:1fr}
+  .fab{right:14px;bottom:14px;padding:13px 17px}
+  .ai-panel{right:8px;bottom:8px;width:calc(100vw - 16px)}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="logo">С</div>
+      <div>
+        <div class="brand-title">СахаКружок</div>
+        <div class="brand-sub">Дополнительное образование Мегино-Кангаласского улуса</div>
+      </div>
+    </div>
+    <nav class="nav" id="nav">
+      <button class="nav-btn active" data-page="home">Главная</button>
+      <button class="nav-btn" data-page="catalog">Каталог</button>
+      <button class="nav-btn" data-page="select">Подбор</button>
+      <button class="nav-btn" data-page="map">Карта</button>
+      <button class="nav-btn" data-page="cabinet">Кабинет</button>
+      <button class="nav-btn" data-page="dashboard">Дашборд</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ HOME ============ -->
+  <section class="page active" id="page-home">
+    <div class="hero">
+      <h1>Все кружки улуса — в одном месте</h1>
+      <p>Единая цифровая платформа «СахаКружок» собирает программы дополнительного образования района: подберём занятие по возрасту, интересам, месту и расписанию, покажем свободные места и выстроим путь развития ребёнка — от первого кружка до конкурса «Моя профессия — ИТ».</p>
+      <div class="hero-btns">
+        <button class="btn ghost" data-page="catalog">📚 Открыть каталог</button>
+        <button class="btn ghost" data-page="select">🎯 Подобрать занятие</button>
+        <button class="btn ghost" id="heroAi">🤖 Спросить ИИ-помощника</button>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>Что умеет платформа</h2></div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="ico">📚</div>
+        <h3>Единый каталог</h3>
+        <p class="muted small">Все программы 4 организаций района: направление, возраст, педагог, расписание, формат, свободные места.</p>
+        <button class="btn" data-page="catalog">Смотреть каталог</button>
+      </div>
+      <div class="card">
+        <div class="ico">🎯</div>
+        <h3>Умный подбор</h3>
+        <p class="muted small">5 вопросов — и сервис покажет программы, которые подходят именно вашему ребёнку.</p>
+        <button class="btn" data-page="select">Пройти подбор</button>
+      </div>
+      <div class="card">
+        <div class="ico">🗺️</div>
+        <h3>Карта возможностей</h3>
+        <p class="muted small">Кружки по сёлам улуса: что доступно рядом, а что — только онлайн или в другом селе.</p>
+        <button class="btn" data-page="map">Открыть карту</button>
+      </div>
+      <div class="card">
+        <div class="ico">🧭</div>
+        <h3>Образовательная траектория</h3>
+        <p class="muted small">Не просто список кружков, а понятный путь: «Робототехника → Программирование → конкурс "Моя профессия — ИТ"».</p>
+        <button class="btn" data-page="select">Построить путь</button>
+      </div>
+      <div class="card">
+        <div class="ico">📊</div>
+        <h3>Дашборд для администрации</h3>
+        <p class="muted small">Охват, популярные направления, дефицит мест и ИИ-прогноз востребованности по территориям.</p>
+        <button class="btn" data-page="dashboard">Открыть дашборд</button>
+      </div>
+      <div class="card">
+        <div class="ico">🤖</div>
+        <h3>ИИ-помощник</h3>
+        <p class="muted small">Подбирает кружок по интересам, отвечает на вопросы о записи, документах и свободных местах.</p>
+        <button class="btn primary" id="homeAi">Спросить ИИ</button>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Возрастные траектории</h2>
+      <span class="muted small">нажмите на ступень, чтобы увидеть программы</span>
+    </div>
+    <div class="grid g3" id="trajHome"></div>
+
+    <div class="section-title"><h2>Популярные направления</h2></div>
+    <div class="grid g3" id="homeCats"></div>
+  </section>
+
+  <!-- ============ CATALOG ============ -->
+  <section class="page" id="page-catalog">
+    <div class="section-title">
+      <h2>Единый каталог программ</h2>
+      <span class="tag">🔄 Синхронизация с ЕАИС «Навигатор»</span>
+    </div>
+
+    <div class="filters">
+      <div class="field">
+        <label>Поиск</label>
+        <input id="fQ" placeholder="Например: робот, Python…" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Направление</label>
+        <select id="fCat"><option value="">Все направления</option></select>
+      </div>
+      <div class="field">
+        <label>Возраст</label>
+        <select id="fAge">
+          <option value="">Любой возраст</option>
+          <option value="6">5–7 лет</option>
+          <option value="9">8–10 лет</option>
+          <option value="12">11–13 лет</option>
+          <option value="15">14–16 лет</option>
+          <option value="17">17–18 лет</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Населённый пункт</label>
+        <select id="fVillage"><option value="">Весь улус</option></select>
+      </div>
+      <div class="field">
+        <label>Формат</label>
+        <select id="fFormat">
+          <option value="">Любой формат</option>
+          <option>Очно</option>
+          <option>Дистанционно</option>
+          <option>Смешанно</option>
+        </select>
+      </div>
+      <label class="check"><input type="checkbox" id="fFree"> Только со свободными местами</label>
+    </div>
+
+    <div class="section-title">
+      <h2 id="catCount">Найдено программ</h2>
+      <button class="btn" id="fReset">Сбросить фильтры</button>
+    </div>
+    <div class="grid g3" id="catalogGrid"></div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="page" id="page-select">
+    <div class="section-title"><h2>Умный подбор занятия</h2></div>
+    <div class="card quiz" id="quizCard"></div>
+    <div id="quizResults" class="grid g3" style="margin-top:18px"></div>
+  </section>
+
+  <!-- ============ MAP ============ -->
+  <section class="page" id="page-map">
+    <div class="section-title">
+      <h2>Карта возможностей улуса</h2>
+      <span class="muted small">Нажмите на село, чтобы увидеть программы</span>
+    </div>
+    <div class="filters" style="margin-bottom:14px">
+      <div class="field">
+        <label>Направление</label>
+        <select id="mCat"><option value="">Все направления</option></select>
+      </div>
+      <div class="field">
+        <label>Возраст ребёнка</label>
+        <select id="mAge">
+          <option value="">Любой</option>
+          <option value="6">5–7 лет</option>
+          <option value="9">8–10 лет</option>
+          <option value="12">11–13 лет</option>
+          <option value="15">14–16 лет</option>
+          <option value="17">17–18 лет</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>&nbsp;</label>
+        <button class="btn" id="mReset">Сбросить</button>
+      </div>
+    </div>
+    <div class="map-canvas">
+      <svg class="map-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
+        <path d="M0,42 C18,34 30,50 48,43 C66,36 78,52 100,45" stroke="#b9dcf3" stroke-width="2.4" fill="none"/>
+        <path d="M0,18 C20,25 34,8 52,14 C70,20 84,8 100,13" stroke="#d5ecfa" stroke-width="1.5" fill="none"/>
+      </svg>
+      <div id="mapPoints"></div>
+    </div>
+    <div class="section-title"><h2 id="mapTitle">Выберите село на карте</h2></div>
+    <div class="grid g3" id="mapGrid"></div>
+  </section>
+
+  <!-- ============ CABINET ============ -->
+  <section class="page" id="page-cabinet">
+    <div class="section-title"><h2>Личный кабинет</h2></div>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Профиль ребёнка</h3>
+        <div class="field" style="margin-bottom:10px">
+          <label>Имя ребёнка</label>
+          <input id="cName" placeholder="Например: Айсен">
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Возраст</label>
+          <input id="cAge" type="number" min="5" max="18" placeholder="Например: 11">
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Населённый пункт</label>
+          <select id="cVillage"></select>
+        </div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Интересы</label>
+          <select id="cInterest"></select>
+        </div>
+        <button class="btn primary" id="cSave">💾 Сохранить профиль</button>
+      </div>
+
+      <div class="card">
+        <h3>Мои записи</h3>
+        <div id="cabList"></div>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>Достижения и прогресс</h2></div>
+    <div class="grid g3" id="cabAch"></div>
+
+    <div class="section-title"><h2>Рекомендованные следующие шаги</h2></div>
+    <div class="grid g3" id="cabNext"></div>
+  </section>
+
+  <!-- ============ DASHBOARD ============ -->
+  <section class="page" id="page-dashboard">
+    <div class="section-title">
+      <h2>Аналитический дашборд</h2>
+      <button class="btn primary" id="dashAi">🤖 ИИ-анализ и прогноз</button>
+    </div>
+    <div class="stats" id="dashStats"></div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card">
+        <h3>Охват по населённым пунктам</h3>
+        <p class="muted small">Количество программ и свободных мест</p>
+        <div id="dashVillages"></div>
+      </div>
+      <div class="card">
+        <h3>Популярность направлений</h3>
+        <p class="muted small">Доля заявок от общего числа</p>
+        <div id="dashCats"></div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card">
+        <h3>Охват по возрастным группам</h3>
+        <div id="dashAges"></div>
+      </div>
+      <div class="card">
+        <h3>Дефицит мест</h3>
+        <p class="muted small">Программы с наименьшим числом свободных мест</p>
+        <div id="dashDeficit"></div>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>ИИ-прогноз востребованности</h2></div>
+    <div class="card" id="aiForecast">
+      <p class="muted small">Нажмите «ИИ-анализ и прогноз», чтобы построить рекомендации по развитию сети.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ AI PANEL ============ -->
+<button class="fab" id="aiFab"><span class="pulse"></span> ИИ-помощник</button>
+
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-head">
+    <div>
+      <strong>ИИ-помощник «СахаКружок»</strong>
+      <div class="small" style="opacity:.8">Подбор кружка · расписание · запись</div>
+    </div>
+    <button class="icon-btn" id="aiClose">✕</button>
+  </div>
+  <div class="ai-body" id="aiBody"></div>
+  <div class="ai-chips" id="aiChips"></div>
+  <form class="ai-input" id="aiForm">
+    <input id="aiText" placeholder="Напишите вопрос…" autocomplete="off">
+    <button type="submit">→</button>
+  </form>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ==================================================================
+   1. ДАННЫЕ
+   ================================================================== */
+const VILLAGES = ['Майя','Нижний Бестях','Павловск','Хаптагай','Тюнгюлю','Беке','Табага','Техтюр'];
+
+const MAP_POINTS = {
+  'Майя':         {x:50, y:45},
+  'Нижний Бестях':{x:36, y:68},
+  'Павловск':     {x:27, y:30},
+  'Хаптагай':     {x:64, y:60},
+  'Тюнгюлю':      {x:73, y:26},
+  'Беке':         {x:44, y:18},
+  'Табага':       {x:61, y:78},
+  'Техтюр':       {x:20, y:52}
+};
+
+const CATS = [
+  'Технологии и робототехника',
+  'Программирование и ИИ',
+  'Медиа и креативные индустрии',
+  'Кибербезопасность и цифровая грамотность',
+  'Наука и инженерия',
+  'Спорт, здоровье и туризм',
+  'Культура, языки и искусство',
+  'Профессиональные пробы'
+];
+
+const C = {
+  TECH: CATS[0], PROG: CATS[1], MEDIA: CATS[2], CYBER: CATS[3],
+  SCI: CATS[4], SPORT: CATS[5], CULT: CATS[6], JOB: CATS[7]
+};
+
+const ORG = {
+  CDOD: 'Центр дополнительного образования детей',
+  CDTUT: 'Центр детского и юношеского технического творчества',
+  UPC: 'Учебно-производственный центр',
+  PPMS: 'Центр психолого-медико-социального сопровождения'
+};
+
+let PROGRAMS = [
+  {id:1, title:'Робототехника для начинающих', cat:C.TECH, age:[7,10], village:'Майя', org:ORG.CDOD, teacher:'Петрова А. И.', schedule:'Пн, Ср 15:00–16:30', format:'Очно', free:6, apps:14, price:'Бесплатно',
+   desc:'Первые шаги в конструировании и программировании: LEGO WeDo, простые механизмы, мини-проекты и итоговая выставка роботов.', next:[2,3]},
+  {id:2, title:'Робототехника LEGO Mindstorms', cat:C.TECH, age:[10,14], village:'Майя', org:ORG.CDTUT, teacher:'Слепцов Д. Н.', schedule:'Вт, Чт 16:00–17:30', format:'Очно', free:3, apps:12, price:'Бесплатно',
+   desc:'Сборка и программирование автономных роботов, подготовка к республиканским соревнованиям по робототехнике.', next:[4,5]},
+  {id:3, title:'3D-моделирование и печать', cat:C.TECH, age:[10,15], village:'Нижний Бестях', org:ORG.CDTUT, teacher:'Николаев И. И.', schedule:'Ср, Пт 17:00–18:30', format:'Смешанно', free:4, apps:9, price:'Бесплатно',
+   desc:'Работа в Tinkercad и Blender, подготовка моделей к 3D-печати, проектирование корпусов для своих устройств.', next:[8,15]},
+  {id:4, title:'Дроны и аэросъёмка', cat:C.TECH, age:[12,18], village:'Нижний Бестях', org:ORG.CDTUT, teacher:'Артемьев С. С.', schedule:'Сб 10:00–12:00', format:'Очно', free:2, apps:11, price:'Бесплатно',
+   desc:'Пилотирование, сборка и настройка квадрокоптеров, аэрофотосъёмка и обработка материалов для проектов.', next:[23]},
+  {id:5, title:'Arduino: юный инженер', cat:C.SCI, age:[11,15], village:'Майя', org:ORG.CDTUT, teacher:'Иванов М. М.', schedule:'Пн, Пт 16:00–17:30', format:'Очно', free:5, apps:8, price:'Бесплатно',
+   desc:'Электроника, датчики, умные устройства своими руками. Проектная работа и защита изобретений.', next:[4]},
+  {id:6, title:'Scratch: первые игры', cat:C.PROG, age:[8,11], village:'Майя', org:ORG.CDOD, teacher:'Егорова Л. В.', schedule:'Вт, Чт 15:00–16:00', format:'Дистанционно', free:10, apps:18, price:'Бесплатно',
+   desc:'Визуальное программирование: анимации, игры и интерактивные истории. Идеальный старт в ИТ.', next:[7,13]},
+  {id:7, title:'Python для школьников', cat:C.PROG, age:[11,14], village:'Нижний Бестях', org:ORG.CDTUT, teacher:'Фёдоров А. А.', schedule:'Пн, Ср 17:00–18:30', format:'Смешанно', free:4, apps:15, price:'Бесплатно',
+   desc:'Основы Python: алгоритмы, работа с данными, телеграм-боты и первые олимпиадные задачи.', next:[8,10]},
+  {id:8, title:'Мобильная разработка', cat:C.PROG, age:[13,16], village:'Майя', org:ORG.CDTUT, teacher:'Захаров Т. Т.', schedule:'Вт, Чт 17:00–18:30', format:'Очно', free:3, apps:10, price:'Бесплатно',
+   desc:'Создание мобильных приложений на Kotlin и Flutter: от идеи и макета до публикации прототипа.', next:[9,23]},
+  {id:9, title:'Веб-разработка', cat:C.PROG, age:[14,17], village:'Нижний Бестях', org:ORG.CDTUT, teacher:'Кривошапкин Р. Р.', schedule:'Пн, Чт 18:00–19:30', format:'Дистанционно', free:5, apps:13, price:'Бесплатно',
+   desc:'HTML, CSS, JavaScript, адаптивная вёрстка и командная разработка учебного сайта улуса.', next:[23]},
+  {id:10, title:'Искусственный интеллект: введение', cat:C.PROG, age:[15,18], village:'Майя', org:ORG.CDTUT, teacher:'Кривошапкин Р. Р.', schedule:'Сб 14:00–16:00', format:'Смешанно', free:8, apps:16, price:'Бесплатно',
+   desc:'Машинное обучение на практике: данные, модели, нейросети и этика ИИ. Подготовка к конкурсам.', next:[23]},
+  {id:11, title:'Кибербезопасность', cat:C.CYBER, age:[12,17], village:'Нижний Бестях', org:ORG.CDTUT, teacher:'Семёнов В. В.', schedule:'Пт 17:00–19:00', format:'Дистанционно', free:12, apps:7, price:'Бесплатно',
+   desc:'Защита данных, пароли, фишинг, основы безопасной работы в сети и CTF-задания для начинающих.', next:[23]},
+  {id:12, title:'Цифровая грамотность', cat:C.CYBER, age:[10,13], village:'Тюнгюлю', org:ORG.CDOD, teacher:'Гоголева М. С.', schedule:'Ср 15:00–16:30', format:'Очно', free:7, apps:5, price:'Бесплатно',
+   desc:'Безопасность в интернете, работа с документами, облачные сервисы и цифровой этикет.', next:[11]},
+  {id:13, title:'Анимация и мультипликация', cat:C.MEDIA, age:[7,12], village:'Майя', org:ORG.CDOD, teacher:'Сивцева Н. Н.', schedule:'Пн, Ср 14:00–15:30', format:'Очно', free:5, apps:11, price:'Бесплатно',
+   desc:'Создание мультфильмов: сценарий, раскадровка, съёмка и монтаж. Премьера работ для родителей.', next:[14,15]},
+  {id:14, title:'Видеопроизводство и блогинг', cat:C.MEDIA, age:[12,18], village:'Нижний Бестях', org:ORG.CDTUT, teacher:'Дьячков Э. Э.', schedule:'Чт 16:00–18:00', format:'Смешанно', free:6, apps:9, price:'Бесплатно',
+   desc:'Съёмка, свет, звук, монтаж, продвижение школьного медиацентра и работа ведущим.', next:[23]},
+  {id:15, title:'Цифровая иллюстрация и дизайн', cat:C.MEDIA, age:[10,16], village:'Майя', org:ORG.CDOD, teacher:'Романова А. А.', schedule:'Вт, Пт 15:00–16:30', format:'Очно', free:2, apps:12, price:'Бесплатно',
+   desc:'Графические редакторы, цифровая живопись, дизайн афиш и оформление мероприятий улуса.', next:[14]},
+  {id:16, title:'Юный инженер', cat:C.SCI, age:[7,11], village:'Тюнгюлю', org:ORG.CDOD, teacher:'Тимофеев П. П.', schedule:'Пн 15:00–16:30', format:'Очно', free:9, apps:6, price:'Бесплатно',
+   desc:'Простые механизмы, опыты, конструирование из подручных материалов и первые изобретения.', next:[5]},
+  {id:17, title:'Шахматы и логика', cat:C.SCI, age:[6,12], village:'Майя', org:ORG.CDOD, teacher:'Борисов К. К.', schedule:'Сб 10:00–11:30', format:'Очно', free:11, apps:10, price:'Бесплатно',
+   desc:'Развитие логики, памяти и стратегического мышления. Турниры внутри объединения.', next:[6]},
+  {id:18, title:'Волейбол', cat:C.SPORT, age:[10,16], village:'Хаптагай', org:ORG.CDOD, teacher:'Афанасьев Н. Н.', schedule:'Вт, Чт 18:00–19:30', format:'Очно', free:8, apps:13, price:'Бесплатно',
+   desc:'Общая физическая подготовка, техника игры, командные соревнования между сёлами улуса.', next:[19]},
+  {id:19, title:'Туризм и краеведение', cat:C.SPORT, age:[11,18], village:'Тюнгюлю', org:ORG.CDOD, teacher:'Константинова С. С.', schedule:'Сб 09:00–12:00', format:'Очно', free:6, apps:8, price:'Бесплатно',
+   desc:'Походы, ориентирование, изучение родного края, экскурсии и исследовательские проекты.', next:[23]},
+  {id:20, title:'Якутский язык и фольклор', cat:C.CULT, age:[6,12], village:'Майя', org:ORG.CDOD, teacher:'Иванова Т. И.', schedule:'Ср, Пт 15:00–16:00', format:'Очно', free:10, apps:12, price:'Бесплатно',
+   desc:'Родной язык через игру, олонхо, скороговорки и народные традиции. Выступления на праздниках.', next:[21]},
+  {id:21, title:'Театральная студия «Кэскил»', cat:C.CULT, age:[8,16], village:'Майя', org:ORG.CDOD, teacher:'Охлопкова В. В.', schedule:'Вт, Сб 16:00–18:00', format:'Очно', free:4, apps:9, price:'Бесплатно',
+   desc:'Актёрское мастерство, сценическая речь, постановка спектаклей и участие в конкурсах.', next:[14]},
+  {id:22, title:'ДПИ: береста и кость', cat:C.CULT, age:[7,14], village:'Беке', org:ORG.CDOD, teacher:'Никитина Е. Е.', schedule:'Пн, Ср 15:00–16:30', format:'Очно', free:5, apps:6, price:'Бесплатно',
+   desc:'Традиционные ремёсла народа саха, работа с берестой, резьба по кости и создание сувениров.', next:[15]},
+  {id:23, title:'Профессиональные пробы IT', cat:C.JOB, age:[14,18], village:'Нижний Бестях', org:ORG.UPC, teacher:'Степанов А. А.', schedule:'Пт 15:00–17:00', format:'Смешанно', free:7, apps:17, price:'Бесплатно',
+   desc:'Пробы профессий разработчика, аналитика и дизайнера. Подготовка к конкурсу «Моя профессия — ИТ» и хакатонам.', next:[]},
+  {id:24, title:'Агропрофпробы', cat:C.JOB, age:[12,18], village:'Павловск', org:ORG.UPC, teacher:'Ефремов Г. Г.', schedule:'Чт 15:00–17:00', format:'Очно', free:8, apps:5, price:'Бесплатно',
+   desc:'Профессиональные пробы в сельском хозяйстве: агрономия, животноводство, агротехника и предпринимательство.', next:[30]},
+  {id:25, title:'Мультстудия «Сардаҥа»', cat:C.MEDIA, age:[5,8], village:'Павловск', org:ORG.CDOD, teacher:'Андреева Л. П.', schedule:'Ср 16:00–17:00', format:'Очно', free:8, apps:4, price:'Бесплатно',
+   desc:'Первые мультфильмы из пластилина и бумаги, развитие фантазии и мелкой моторики.', next:[13]},
+  {id:26, title:'ОФП и подвижные игры', cat:C.SPORT, age:[6,10], village:'Беке', org:ORG.CDOD, teacher:'Васильев Р. Р.', schedule:'Пн, Пт 17:00–18:00', format:'Очно', free:12, apps:9, price:'Бесплатно',
+   desc:'Общая физическая подготовка, весёлые старты, эстафеты и командные игры на свежем воздухе.', next:[18]},
+  {id:27, title:'Юный программист (Scratch)', cat:C.PROG, age:[8,11], village:'Хаптагай', org:ORG.CDOD, teacher:'Соловьёва А. А.', schedule:'Вт, Чт 16:00–17:00', format:'Очно', free:6, apps:7, price:'Бесплатно',
+   desc:'Визуальное программирование для начинающих: игры, квесты и анимация на Scratch.', next:[7]},
+  {id:28, title:'Робототехника (Техтюр)', cat:C.TECH, age:[9,13], village:'Техтюр', org:ORG.CDTUT, teacher:'Кузьмин Д. Д.', schedule:'Ср, Пт 16:30–18:00', format:'Очно', free:4, apps:6, price:'Бесплатно',
+   desc:'Сборка роботов на базе LEGO и Arduino, основы программирования и соревнования.', next:[2]},
+  {id:29, title:'Школьный медиацентр', cat:C.MEDIA, age:[11,17], village:'Табага', org:ORG.CDOD, teacher:'Никифорова М. М.', schedule:'Сб 11:00–13:00', format:'Очно', free:5, apps:5, price:'Бесплатно',
+   desc:'Новости, интервью, фоторепортажи, ведение соцсетей школы и улуса.', next:[14]},
+  {id:30, title:'Финансовая грамотность и предпринимательство', cat:C.JOB, age:[13,18], village:'Павловск', org:ORG.UPC, teacher:'Захаров Н. Н.', schedule:'Пт 15:00–16:30', format:'Смешанно', free:9, apps:6, price:'Бесплатно',
+   desc:'Основы экономики, бизнес-планирование, защита проектов и пробы предпринимательских профессий.', next:[23]}
+];
+
+const byId = id => PROGRAMS.find(p => p.id === id);
+
+const TRAJECTORIES = [
+  {title:'5–7 лет', sub:'Знакомство, игра, творчество, логика', ids:[25,1,13]},
+  {title:'8–10 лет', sub:'Первые навыки, проектная деятельность', ids:[6,27,3]},
+  {title:'11–13 лет', sub:'Выбор направления, командные проекты', ids:[7,8,17]},
+  {title:'14–16 лет', sub:'Профпробы, конкурсы, предпрофильная подготовка', ids:[9,10,11,23]},
+  {title:'17–18 лет', sub:'Самоопределение, портфолио, стажировки', ids:[10,23]}
+];
+
+/* ==================================================================
+   2. УТИЛИТЫ
+   ================================================================== */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const norm = s => String(s).toLowerCase().replace(/ё/g,'е');
+
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tm);
+  t._tm = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function loadCabinet(){
+  try{
+    const raw = localStorage.getItem('menge_pro_cabinet');
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return {name:'', age:'', village:'', interest:'', enrollments:[]};
+}
+function saveCabinet(){
+  localStorage.setItem('menge_pro_cabinet', JSON.stringify(state.cabinet));
+}
+
+/* ==================================================================
+   3. СОСТОЯНИЕ
+   ================================================================== */
+const state = {
+  page: 'home',
+  filters: {q:'', cat:'', age:'', village:'', format:'', free:false},
+  mapFilters: {cat:'', age:''},
+  selectedVillage: null,
+  quiz: {step:0, age:'', cats:[], village:'', time:'', exp:''},
+  cabinet: loadCabinet()
+};
+
+/* ==================================================================
+   4. НАВИГАЦИЯ
+   ================================================================== */
+function goPage(name){
+  state.page = name;
+  $$('.page').forEach(p => p.classList.remove('active'));
+  const page = $('#page-' + name);
+  if(page) page.classList.add('active');
+  $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.page === name));
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(name === 'cabinet')   renderCabinet();
+  if(name === 'dashboard') renderDashboard();
+  if(name === 'map')       renderMap();
+  if(name === 'catalog')   renderCatalog();
+}
+
+document.addEventListener('click', e => {
+  const nav = e.target.closest('[data-page]');
+  if(nav){ goPage(nav.dataset.page); }
+
+  const det = e.target.closest('[data-detail]');
+  if(det){ openProgram(+det.dataset.detail); }
+
+  const enr = e.target.closest('[data-enroll]');
+  if(enr){ enroll(+enr.dataset.enroll); }
+
+  const vlg = e.target.closest('[data-village]');
+  if(vlg){ selectVillage(vlg.dataset.village); }
+});
+
+/* ==================================================================
+   5. КАТАЛОГ
+   ================================================================== */
+function matchAge(p, age){
+  if(!age) return true;
+  const a = +age;
+  return p.age[0] <= a && a <= p.age[1];
+}
+
+function filteredPrograms(f){
+  return PROGRAMS.filter(p => {
+    if(f.q && !norm(p.title + ' ' + p.desc + ' ' + p.teacher).includes(norm(f.q))) return false;
+    if(f.cat && p.cat !== f.cat) return false;
+    if(f.age && !matchAge(p, f.age)) return false;
+    if(f.village && p.village !== f.village) return false;
+    if(f.format && p.format !== f.format) return false;
+    if(f.free && p.free <= 0) return false;
+    return true;
+  });
+}
+
+function programCard(p, badge){
+  return `<article class="card prog">
+    <div class="prog-top">
+      <span class="tag">${p.cat}</span>
+      <span class="free ${p.free > 0 ? 'ok' : 'no'}">${p.free > 0 ? 'Свободно: ' + p.free : 'Мест нет'}</span>
+    </div>
+    <h3>${p.title}</h3>
+    <p class="muted small" style="margin:0">${p.village} · ${p.org}</p>
+    <div class="meta">
+      <span>👶 ${p.age[0]}–${p.age[1]} лет</span>
+      <span>🗓 ${p.schedule}</span>
+      <span>🎓 ${p.teacher}</span>
+      <span>💻 ${p.format}</span>
+      <span>💰 ${p.price}</span>
+    </div>
+    ${badge ? `<span class="match">${badge}</span>` : ''}
+    <div class="actions">
+      <button class="btn" data-detail="${p.id}">Подробнее</button>
+      <button class="btn primary" data-enroll="${p.id}" ${p.free > 0 ? '' : 'disabled'}>Записаться</button>
+    </div>
+  </article>`;
+}
+
+function renderCatalog(){
+  const f = state.filters;
+  const list = filteredPrograms(f);
+  $('#catCount').textContent = 'Найдено программ: ' + list.length;
+  $('#catalogGrid').innerHTML = list.length
+    ? list.map(p => programCard(p)).join('')
+    : '<div class="empty" style="grid-column:1/-1">По вашим фильтрам ничего не найдено. Попробуйте изменить условия или <button class="btn" data-page="select" style="margin-left:6px">пройти умный подбор</button></div>';
+}
+
+function initCatalogFilters(){
+  const fCat = $('#fCat'), mVillage = $('#fVillage');
+  CATS.forEach(c => { fCat.insertAdjacentHTML('beforeend', `<option>${c}</option>`); });
+  VILLAGES.forEach(v => { mVillage.insertAdjacentHTML('beforeend', `<option>${v}</option>`); });
+
+  $('#fQ').addEventListener('input', e => { state.filters.q = e.target.value; renderCatalog(); });
+  fCat.addEventListener('change', e => { state.filters.cat = e.target.value; renderCatalog(); });
+  $('#fAge').addEventListener('change', e => { state.filters.age = e.target.value; renderCatalog(); });
+  mVillage.addEventListener('change', e => { state.filters.village = e.target.value; renderCatalog(); });
+  $('#fFormat').addEventListener('change', e => { state.filters.format = e.target.value; renderCatalog(); });
+  $('#fFree').addEventListener('change', e => { state.filters.free = e.target.checked; renderCatalog(); });
+  $('#fReset').addEventListener('click', () => {
+    state.filters = {q:'', cat:'', age:'', village:'', format:'', free:false};
+    $('#fQ').value=''; fCat.value=''; $('#fAge').value=''; mVillage.value=''; $('#fFormat').value=''; $('#fFree').checked=false;
+    renderCatalog(); toast('Фильтры сброшены');
+  });
+}
+
+/* ==================================================================
+   6. МОДАЛЬНОЕ ОКНО
+   ================================================================== */
+function openProgram(id){
+  const p = byId(id);
+  if(!p) return;
+  const nexts = (p.next || []).map(byId).filter(Boolean);
+  $('#modal').innerHTML = `
+    <div class="modal-head">
+      <div>
+        <span class="tag">${p.cat}</span>
+        <h2 style="margin:10px 0 4px">${p.title}</h2>
+        <div class="muted small">${p.village} · ${p.org}</div>
+      </div>
+      <button class="icon-btn" id="modalClose">✕</button>
+    </div>
+    <p>${p.desc}</p>
+    <div style="margin:14px 0">
+      <div class="info-row"><span>Возраст</span><span>${p.age[0]}–${p.age[1]} лет</span></div>
+      <div class="info-row"><span>Педагог</span><span>${p.teacher}</span></div>
+      <div class="info-row"><span>Расписание</span><span>${p.schedule}</span></div>
+      <div class="info-row"><span>Формат</span><span>${p.format}</span></div>
+      <div class="info-row"><span>Стоимость</span><span>${p.price}</span></div>
+      <div class="info-row"><span>Свободные места</span><span>${p.free > 0 ? p.free : 'нет'}</span></div>
+      <div class="info-row"><span>Населённый пункт</span><span>${p.village}</span></div>
+    </div>
+    ${nexts.length ? `
+      <h4 style="margin-top:18px">🧭 Следующий шаг траектории</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        ${nexts.map(n => `<button class="chip" data-detail="${n.id}">${n.title} →</button>`).join('')}
+      </div>` : `
+      <h4 style="margin-top:18px">🏁 Финальная ступень</h4>
+      <p class="muted small">Портфолио, стажировки и профессиональные пробы — следующий этап после этой программы.</p>`}
+    <div class="actions" style="margin-top:22px">
+      <button class="btn" id="modalCancel">Закрыть</button>
+      <button class="btn primary" data-enroll="${p.id}" ${p.free > 0 ? '' : 'disabled'}>Записаться на программу</button>
+    </div>
+  `;
+  $('#overlay').classList.add('open');
+  $('#modalClose').onclick = closeModal;
+  $('#modalCancel').onclick = closeModal;
+}
+
+function closeModal(){ $('#overlay').classList.remove('open'); }
+$('#overlay').addEventListener('click', e => { if(e.target.id === 'overlay') closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape'){ closeModal(); closeAi(); } });
+
+/* ==================================================================
+   7. ЗАПИСЬ
+   ================================================================== */
+function enroll(id){
+  const p = byId(id);
+  if(!p || p.free <= 0){ toast('Свободных мест нет'); return; }
+  if(state.cabinet.enrollments.some(e => e.id === id)){
+    toast('Вы уже записаны на «' + p.title + '»');
+    return;
+  }
+  p.free -= 1;
+  p.apps += 1;
+  state.cabinet.enrollments.push({id, date:new Date().toLocaleDateString('ru-RU'), visits:0});
+  saveCabinet();
+  toast('✅ Заявка отправлена: ' + p.title);
+  closeModal();
+  renderCatalog();
+  renderMap();
+  if(state.page === 'select') runQuizResults(true);
+  if(state.page === 'cabinet') renderCabinet();
+}
+
+/* ==================================================================
+   8. КАРТА
+   ================================================================== */
+function renderMap(){
+  const {cat, age} = state.mapFilters;
+  const box = $('#mapPoints');
+  box.innerHTML = VILLAGES.map(v => {
+    const pt = MAP_POINTS[v];
+    const list = PROGRAMS.filter(p => p.village === v &&
+      (!cat || p.cat === cat) && (!age || matchAge(p, age)));
+    const cnt = list.length;
+    return `<button class="marker ${cnt ? '' : 'dim'} ${state.selectedVillage === v ? 'sel' : ''}"
+              style="left:${pt.x}%;top:${pt.y}%" data-village="${v}">
+              <span class="dot">${cnt}</span>
+              <span class="lbl">${v}</span>
+            </button>`;
+  }).join('');
+
+  const grid = $('#mapGrid');
+  if(!state.selectedVillage){
+    grid.innerHTML = '';
+    $('#mapTitle').textContent = 'Выберите село на карте';
+    return;
+  }
+  const v = state.selectedVillage;
+  const list = PROGRAMS.filter(p => p.village === v &&
+    (!cat || p.cat === cat) && (!age || matchAge(p, age)));
+  $('#mapTitle').textContent = v + ' — программ: ' + list.length;
+  grid.innerHTML = list.length
+    ? list.map(p => programCard(p)).join('')
+    : '<div class="empty" style="grid-column:1/-1">В этом селе по выбранным фильтрам программ нет. Посмотрите дистанционные программы в каталоге.</div>';
+}
+
+function selectVillage(v){
+  state.selectedVillage = v;
+  renderMap();
+  setTimeout(() => {
+    document.getElementById('mapTitle').scrollIntoView({behavior:'smooth', block:'center'});
+  }, 60);
+}
+
+function initMapFilters(){
+  const mCat = $('#mCat');
+  CATS.forEach(c => mCat.insertAdjacentHTML('beforeend', `<option>${c}</option>`));
+  mCat.addEventListener('change', e => { state.mapFilters.cat = e.target.value; renderMap(); });
+  $('#mAge').addEventListener('change', e => { state.mapFilters.age = e.target.value; renderMap(); });
+  $('#mReset').addEventListener('click', () => {
+    state.mapFilters = {cat:'', age:''};
+    mCat.value = ''; $('#mAge').value = '';
+    renderMap(); toast('Фильтры карты сброшены');
+  });
+}
+
+/* ==================================================================
+   9. УМНЫЙ ПОДБОР
+   ================================================================== */
+const QUIZ_STEPS = [
+  {key:'age',     title:'Сколько лет ребёнку?',      hint:'Возраст помогает подобрать программу по уровню'},
+  {key:'cats',    title:'Что интересно ребёнку?',    hint:'Можно выбрать несколько направлений'},
+  {key:'village', title:'Где удобно заниматься?',    hint:'Учитываем транспортную доступность'},
+  {key:'time',    title:'Удобное время занятий',     hint:'Подберём под ваш график'},
+  {key:'exp',     title:'Есть ли опыт в этом направлении?', hint:'Покажем подходящий уровень'}
+];
+
+const TIME_OPTIONS = [
+  {v:'morning', t:'Утро (до 12:00)'},
+  {v:'day',     t:'День (12:00–16:00)'},
+  {v:'evening', t:'Вечер (после 16:00)'},
+  {v:'weekend', t:'Выходные'}
+];
+
+function matchTime(p, key){
+  if(!key) return true;
+  if(key === 'weekend') return /Сб|Вс/.test(p.schedule);
+  const times = p.schedule.match(/(\d{1,2}):(\d{2})/g) || [];
+  if(!times.length) return false;
+  const h = parseInt(times[0], 10);
+  if(key === 'morning') return h < 12;
+  if(key === 'day')     return h >= 12 && h < 16;
+  if(key === 'evening') return h >= 16;
+  return true;
+}
+
+function scoreProgram(p, prefs){
+  let s = 0;
+  const age = prefs.age === '' || prefs.age == null ? null : +prefs.age;
+  if(age !== null){
+    if(p.age[0] <= age && age <= p.age[1]) s += 30;
+    else s -= 30;
+  }
+  if(prefs.cats && prefs.cats.length){
+    s += prefs.cats.includes(p.cat) ? 35 : -8;
+  }
+  if(prefs.village){
+    if(p.village === prefs.village) s += 20;
+    else if(p.format === 'Дистанционно') s += 7;
+    else s -= 10;
+  }
+  if(prefs.time){ s += matchTime(p, prefs.time) ? 10 : -6; }
+  if(prefs.exp === 'none' && /начинающ|первые|введение|юный|scratch|грамотн|шахмат|подвижн|мультстудия/i.test(p.title)) s += 8;
+  if(prefs.exp === 'yes'  && /python|веб|мобильн|искусственн|кибер|дрон|arduino|пробы/i.test(p.title)) s += 8;
+  s += Math.min(p.free, 10) * 0.6;
+  return s;
+}
+
+function matchPercent(s){
+  return Math.max(38, Math.min(99, Math.round(60 + s / 3)));
+}
+
+function renderQuiz(){
+  const st = state.quiz;
+  const step = QUIZ_STEPS[st.step];
+  const pct = Math.round((st.step) / QUIZ_STEPS.length * 100);
+
+  let body = '';
+  if(step.key === 'age'){
+    body = `<input class="quiz-input" id="qAge" type="number" min="5" max="18" placeholder="Например: 11" value="${st.age}">`;
+  }
+  if(step.key === 'cats'){
+    body = `<div class="chips">${CATS.map(c =>
+      `<button class="chip ${st.cats.includes(c) ? 'on' : ''}" data-qcat="${c}">${c}</button>`).join('')}</div>`;
+  }
+  if(step.key === 'village'){
+    body = `<div class="chips">${VILLAGES.map(v =>
+      `<button class="chip ${st.village === v ? 'on' : ''}" data-qvillage="${v}">${v}</button>`).join('')}
+      <button class="chip ${st.village === '__any' ? 'on' : ''}" data-qvillage="__any">Не важно</button></div>`;
+  }
+  if(step.key === 'time'){
+    body = `<div class="chips">${TIME_OPTIONS.map(o =>
+      `<button class="chip ${st.time === o.v ? 'on' : ''}" data-qtime="${o.v}">${o.t}</button>`).join('')}
+      <button class="chip ${st.time === '__any' ? 'on' : ''}" data-qtime="__any">Не важно</button></div>`;
+  }
+  if(step.key === 'exp'){
+    body = `<div class="chips">
+      <button class="chip ${st.exp === 'none' ? 'on' : ''}" data-qexp="none">Нет, только начинаем</button>
+      <button class="chip ${st.exp === 'yes' ? 'on' : ''}" data-qexp="yes">Да, уже занимались</button>
+    </div>`;
+  }
+
+  $('#quizCard').innerHTML = `
+    <div class="progress"><i style="width:${pct}%"></i></div>
+    <div class="muted small">Шаг ${st.step + 1} из ${QUIZ_STEPS.length}</div>
+    <h3 style="margin-top:6px">${step.title}</h3>
+    <p class="muted small">${step.hint}</p>
+    ${body}
+    <div class="quiz-nav">
+      <button class="btn" id="qBack" ${st.step === 0 ? 'disabled' : ''}>← Назад</button>
+      ${st.step < QUIZ_STEPS.length - 1
+        ? `<button class="btn primary" id="qNext">Далее →</button>`
+        : `<button class="btn accent" id="qDone">✨ Подобрать программы</button>`}
+    </div>
+  `;
+
+  if(step.key === 'age'){
+    const inp = $('#qAge');
+    inp.addEventListener('input', e => { state.quiz.age = e.target.value; });
+    inp.focus();
+  }
+
+  $('#qBack').onclick = () => { if(st.step > 0){ st.step--; renderQuiz(); } };
+  const next = $('#qNext');
+  if(next) next.onclick = () => {
+    if(st.step === 0 && !st.age){ toast('Укажите возраст ребёнка'); return; }
+    st.step++; renderQuiz();
+  };
+  const done = $('#qDone');
+  if(done) done.onclick = () => runQuizResults(false);
+}
+
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-qcat]');
+  if(c){
+    const v = c.dataset.qcat;
+    const i = state.quiz.cats.indexOf(v);
+    if(i >= 0) state.quiz.cats.splice(i,1); else state.quiz.cats.push(v);
+    renderQuiz(); return;
+  }
+  const v = e.target.closest('[data-qvillage]');
+  if(v){ state.quiz.village = v.dataset.qvillage; renderQuiz(); return; }
+
+  const t = e.target.closest('[data-qtime]');
+  if(t){ state.quiz.time = t.dataset.qtime; renderQuiz(); return; }
+
+  const x = e.target.closest('[data-qexp]');
+  if(x){ state.quiz.exp = x.dataset.qexp; renderQuiz(); return; }
+});
+
+function runQuizResults(silent){
+  const st = state.quiz;
+  const prefs = {
+    age: st.age,
+    cats: st.cats,
+    village: st.village === '__any' ? '' : st.village,
+    time: st.time === '__any' ? '' : st.time,
+    exp: st.exp
+  };
+  const scored = PROGRAMS
+    .map(p => ({p, s: scoreProgram(p, prefs)}))
+    .sort((a,b) => b.s - a.s)
+    .slice(0, 6);
+
+  $('#quizResults').innerHTML = `
+    <div style="grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <h2 style="margin:0;font-size:20px">Рекомендуем для вас</h2>
+      <button class="btn" id="qRestart">Пройти заново</button>
+    </div>` +
+    scored.map(x => programCard(x.p, 'Соответствие ' + matchPercent(x.s) + '%')).join('');
+
+  $('#qRestart').onclick = () => {
+    state.quiz = {step:0, age:'', cats:[], village:'', time:'', exp:''};
+    $('#quizResults').innerHTML = '';
+    renderQuiz();
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  if(!silent){
+    toast('Подобрано программ: ' + scored.length);
+    setTimeout(() => $('#quizResults').scrollIntoView({behavior:'smooth', block:'start'}), 80);
+  }
+}
+
+/* ==================================================================
+   10. ЛИЧНЫЙ КАБИНЕТ
+   ================================================================== */
+function renderCabinet(){
+  const cab = state.cabinet;
+  $('#cName').value = cab.name || '';
+  $('#cAge').value = cab.age || '';
+
+  const cv = $('#cVillage');
+  cv.innerHTML = '<option value="">Не указан</option>' +
+    VILLAGES.map(v => `<option ${cab.village === v ? 'selected' : ''}>${v}</option>`).join('');
+
+  const ci = $('#cInterest');
+  ci.innerHTML = '<option value="">Не указан</option>' +
+    CATS.map(c => `<option ${cab.interest === c ? 'selected' : ''}>${c}</option>`).join('');
+
+  const list = $('#cabList');
+  if(!cab.enrollments.length){
+    list.innerHTML = `<div class="empty" style="padding:22px">
+      Пока нет записей. <button class="btn" data-page="catalog" style="margin-left:8px">Перейти в каталог</button>
+    </div>`;
+  } else {
+    list.innerHTML = cab.enrollments.map(e => {
+      const p = byId(e.id);
+      if(!p) return '';
+      return `<div style="border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <strong>${p.title}</strong>
+          <span class="tag">${p.cat}</span>
+        </div>
+        <div class="muted small" style="margin:4px 0 8px">${p.village} · ${p.schedule} · ${p.teacher}</div>
+        <div class="muted small">Записан: ${e.date} · Посещений: ${e.visits}</div>
+        <div class="actions" style="margin-top:10px">
+          <button class="btn" data-detail="${p.id}">Подробнее</button>
+          <button class="btn accent" data-visit="${p.id}">Отметить посещение</button>
+          <button class="btn danger" data-cancel="${p.id}">Отменить</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const totalVisits = cab.enrollments.reduce((s,e) => s + e.visits, 0);
+  const ach = [
+    {icon:'🎒', title:'Первый шаг', desc:'Записан на программу', done: cab.enrollments.length > 0},
+    {icon:'🔥', title:'Активный участник', desc:'5 и более посещений', done: totalVisits >= 5},
+    {icon:'🧭', title:'Исследователь', desc:'Записан на 3+ направления', done: cab.enrollments.length >= 3},
+    {icon:'🏆', title:'Портфолио', desc:'10 и более посещений', done: totalVisits >= 10}
+  ];
+  $('#cabAch').innerHTML = ach.map(a => `
+    <div class="card" style="opacity:${a.done ? 1 : .5}">
+      <div class="ico">${a.icon}</div>
+      <h3>${a.title}</h3>
+      <p class="muted small" style="margin:0">${a.desc}</p>
+      <div class="tag" style="margin-top:8px;display:inline-block">${a.done ? '✅ Получено' : 'В процессе'}</div>
+    </div>`).join('');
+
+  const nextIds = new Set();
+  cab.enrollments.forEach(e => {
+    const p = byId(e.id);
+    if(p && p.next) p.next.forEach(n => { if(!cab.enrollments.some(x => x.id === n)) nextIds.add(n); });
+  });
+  const nexts = [...nextIds].map(byId).filter(Boolean).slice(0, 6);
+  $('#cabNext').innerHTML = nexts.length
+    ? nexts.map(p => programCard(p, 'Следующая ступень')).join('')
+    : `<div class="empty" style="grid-column:1/-1">
+        ${cab.enrollments.length ? 'Вы на финальной ступени выбранной траектории — самое время собирать портфолио и участвовать в конкурсах.' : 'Запишитесь на программу, и платформа построит для вас индивидуальную траекторию развития.'}
+      </div>`;
+
+  $$('[data-visit]').forEach(b => b.onclick = () => {
+    const id = +b.dataset.visit;
+    const e = state.cabinet.enrollments.find(x => x.id === id);
+    if(e){ e.visits++; saveCabinet(); renderCabinet(); toast('Посещение отмечено 👍'); }
+  });
+  $$('[data-cancel]').forEach(b => b.onclick = () => {
+    const id = +b.dataset.cancel;
+    state.cabinet.enrollments = state.cabinet.enrollments.filter(x => x.id !== id);
+    const p = byId(id);
+    if(p) p.free += 1;
+    saveCabinet(); renderCabinet(); renderCatalog(); renderMap();
+    toast('Запись отменена');
+  });
+}
+
+$('#cSave').addEventListener('click', () => {
+  state.cabinet.name = $('#cName').value.trim();
+  state.cabinet.age = $('#cAge').value;
+  state.cabinet.village = $('#cVillage').value;
+  state.cabinet.interest = $('#cInterest').value;
+  saveCabinet();
+  toast('Профиль сохранён ✅');
+});
+
+/* ==================================================================
+   11. ДАШБОРД
+   ================================================================== */
+function renderDashboard(){
+  const totalPrograms = PROGRAMS.length;
+  const totalFree = PROGRAMS.reduce((s,p) => s + p.free, 0);
+  const totalApps = PROGRAMS.reduce((s,p) => s + p.apps, 0);
+  const totalPlaces = totalFree + totalApps;
+  const children = Math.round(totalApps * 1.15);
+
+  $('#dashStats').innerHTML = `
+    <div class="stat"><b>${totalPrograms}</b><span>программ в каталоге</span></div>
+    <div class="stat"><b>${children}</b><span>детей охвачено</span></div>
+    <div class="stat"><b>${totalFree}</b><span>свободных мест</span></div>
+    <div class="stat"><b>${Math.round(totalApps / totalPlaces * 100)}%</b><span>заполняемость</span></div>
+    <div class="stat"><b>${VILLAGES.length}</b><span>населённых пунктов</span></div>
+  `;
+
+  const vRows = VILLAGES.map(v => {
+    const ps = PROGRAMS.filter(p => p.village === v);
+    return {v, n:ps.length, free:ps.reduce((s,p)=>s+p.free,0)};
+  }).sort((a,b) => b.n - a.n);
+  const maxV = Math.max(...vRows.map(r => r.n), 1);
+  $('#dashVillages').innerHTML = vRows.map(r => `
+    <div class="bar-row">
+      <span>${r.v}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${r.n / maxV * 100}%"></div></div>
+      <span class="bar-val">${r.n}</span>
+    </div>`).join('');
+
+  const cRows = CATS.map(c => {
+    const ps = PROGRAMS.filter(p => p.cat === c);
+    return {c, apps: ps.reduce((s,p)=>s+p.apps,0), n: ps.length};
+  }).sort((a,b) => b.apps - a.apps);
+  const maxC = Math.max(...cRows.map(r => r.apps), 1);
+  $('#dashCats').innerHTML = cRows.map(r => `
+    <div class="bar-row">
+      <span style="font-size:12.5px">${r.c.split(' ')[0]}${r.c.includes(' ')?'…':''}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${r.apps / maxC * 100}%"></div></div>
+      <span class="bar-val">${r.apps}</span>
+    </div>`).join('');
+
+  const bands = [
+    {t:'5–7 лет', a:[5,7]}, {t:'8–10 лет', a:[8,10]}, {t:'11–13 лет', a:[11,13]},
+    {t:'14–16 лет', a:[14,16]}, {t:'17–18 лет', a:[17,18]}
+  ];
+  const aRows = bands.map(b => {
+    const ps = PROGRAMS.filter(p => p.age[0] <= b.a[1] && p.age[1] >= b.a[0]);
+    return {t:b.t, n:ps.length, free:ps.reduce((s,p)=>s+p.free,0)};
+  });
+  const maxA = Math.max(...aRows.map(r => r.n), 1);
+  $('#dashAges').innerHTML = aRows.map(r => `
+    <div class="bar-row">
+      <span>${r.t}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${r.n / maxA * 100}%"></div></div>
+      <span class="bar-val">${r.n}</span>
+    </div>`).join('') +
+    `<p class="muted small" style="margin-top:10px">Свободных мест в группе 17–18 лет: ${aRows[4].free}</p>`;
+
+  const deficit = [...PROGRAMS].sort((a,b) => a.free - b.free).slice(0, 6);
+  $('#dashDeficit').innerHTML = deficit.map(p => `
+    <div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed #eef2f8">
+      <div>
+        <div style="font-weight:700;font-size:13.5px">${p.title}</div>
+        <div class="muted small">${p.village} · ${p.cat}</div>
+      </div>
+      <span class="free ${p.free > 0 ? 'ok' : 'no'}">${p.free > 0 ? p.free + ' мест' : 'нет мест'}</span>
+    </div>`).join('');
+}
+
+function aiForecast(){
+  const rows = CATS.map(c => {
+    const ps = PROGRAMS.filter(p => p.cat === c);
+    const free = ps.reduce((s,p) => s + p.free, 0);
+    const apps = ps.reduce((s,p) => s + p.apps, 0);
+    const load = apps / (apps + free || 1);
+    return {c, n: ps.length, free, apps, load};
+  }).sort((a,b) => b.load - a.load);
+
+  const top = rows.slice(0, 2);
+  const low = rows.slice(-2);
+  const lowVillages = VILLAGES.map(v => ({
+    v, n: PROGRAMS.filter(p => p.village === v).length
+  })).sort((a,b) => a.n - b.n).slice(0, 2);
+
+  $('#aiForecast').innerHTML = `
+    <h3 style="margin-bottom:10px">📈 Прогноз на следующий учебный год</h3>
+    <div class="note" style="margin-bottom:12px">
+      <strong>Растущий спрос:</strong> ${top.map(r => `${r.c} (загрузка ${Math.round(r.load*100)}%)`).join(', ')}.
+      Рекомендуется открыть дополнительные группы и увеличить число мест.
+    </div>
+    <div class="note" style="margin-bottom:12px">
+      <strong>Недоиспользованные направления:</strong> ${low.map(r => `${r.c} (загрузка ${Math.round(r.load*100)}%)`).join(', ')}.
+      Требуется продвижение, обновление описаний и выездные мастер-классы.
+    </div>
+    <div class="note">
+      <strong>Территории с дефицитом программ:</strong> ${lowVillages.map(x => `${x.v} (${x.n} прогр.)`).join(', ')}.
+      Для сельских школьников рекомендуем открыть дистанционные и смешанные форматы.
+    </div>
+    <p class="muted small" style="margin-top:12px">Прогноз построен ИИ-модулем платформы на основе заявок, свободных мест и распределения программ по территориям.</p>
+  `;
+}
+
+$('#dashAi').addEventListener('click', () => {
+  aiForecast();
+  toast('ИИ-прогноз построен 🤖');
+  setTimeout(() => $('#aiForecast').scrollIntoView({behavior:'smooth', block:'center'}), 100);
+});
+
+/* ==================================================================
+   12. ГЛАВНАЯ
+   ================================================================== */
+function renderHome(){
+  $('#trajHome').innerHTML = TRAJECTORIES.map(t => `
+    <div class="card">
+      <div class="tag" style="margin-bottom:8px;display:inline-block">${t.title}</div>
+      <h3>${t.sub}</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+        ${t.ids.map(id => {
+          const p = byId(id);
+          return p ? `<button class="chip" data-detail="${p.id}" style="font-size:12.5px;padding:6px 11px">${p.title} →</button>` : '';
+        }).join('')}
+      </div>
+    </div>`).join('');
+
+  $('#homeCats').innerHTML = CATS.map(c => {
+    const ps = PROGRAMS.filter(p => p.cat === c);
+    const free = ps.reduce((s,p) => s + p.free, 0);
+    return `<div class="card">
+      <h3 style="font-size:15px">${c}</h3>
+      <p class="muted small" style="margin:0">Программ: ${ps.length} · Свободно мест: ${free}</p>
+      <button class="btn" style="margin-top:10px" data-catgo="${c}">Смотреть программы</button>
+    </div>`;
+  }).join('');
+
+  $$('[data-catgo]').forEach(b => b.onclick = () => {
+    $('#fCat').value = b.dataset.catgo;
+    state.filters.cat = b.dataset.catgo;
+    renderCatalog();
+    goPage('catalog');
+  });
+}
+
+/* ==================================================================
+   13. ИИ-ПОМОЩНИК
+   ================================================================== */
+const CAT_KEYS = [
+  [C.TECH,  ['робот','дрон','3d','моделир','arduino','ардуино','констру','техническ','механик','квадрокоптер']],
+  [C.PROG,  ['программ','python','питон','scratch','скретч','кодинг','сайт','веб','мобильн','приложен','искусственн','нейросет','разработк','игр','айти']],
+  [C.MEDIA, ['анимац','мульт','дизайн','видео','блог','иллюстр','медиа','фото','рисова','монтаж']],
+  [C.CYBER, ['безопасн','кибер','хакер','парол','грамотн','защит данных','фишинг']],
+  [C.SCI,   ['наук','инженер','шахмат','логик','физик','эксперимент','изобрет','опыт']],
+  [C.SPORT, ['спорт','волейбол','туризм','поход','краевед','футбол','здоров','офп','секци']],
+  [C.CULT,  ['якутск','фольклор','театр','музык','танц','дпи','берест','искусств','язык','пени','хор','олонхо','ремесл']],
+  [C.JOB,   ['професс','проба','профориент','стажировк','агро','предприним','медицин','финанс','бизнес']]
+];
+
+function extractAge(q){
+  const m = q.match(/(\d{1,2})\s*(?:лет|год|года|годик)?/);
+  if(m){
+    const n = +m[1];
+    if(n >= 5 && n <= 18) return n;
+  }
+  return null;
+}
+
+function detectCats(q){
+  const found = [];
+  CAT_KEYS.forEach(([cat, keys]) => {
+    if(keys.some(k => q.includes(k))) found.push(cat);
+  });
+  return found;
+}
+
+function detectVillage(q){
+  const v = VILLAGES.find(x => q.includes(norm(x)));
+  return v || '';
+}
+
+function miniProgram(p){
+  return `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed #e3ebf6">
+    <strong>${p.title}</strong>
+    <span class="mini">${p.village} · ${p.age[0]}–${p.age[1]} лет · ${p.schedule} · ${p.format} · ${p.free > 0 ? 'свободно ' + p.free : 'мест нет'}</span>
+    <button class="btn" data-detail="${p.id}">Подробнее</button>
+    <button class="btn primary" data-enroll="${p.id}" ${p.free > 0 ? '' : 'disabled'}>Записаться</button>
+  </div>`;
+}
+
+function aiReply(raw){
+  const q = norm(raw);
+  const age = extractAge(q);
+  const cats = detectCats(q);
+  const village = detectVillage(q);
+
+  if(/^(привет|здравств|салам|добрый|хай|hello)/.test(q.trim())){
+    return `Салам! 👋 Я ИИ-помощник платформы «СахаКружок».
+      Помогу подобрать кружок, расскажу о расписании, свободных местах и записи.
+      <span class="mini">Попробуйте: «подбери кружок для 9 лет», «что есть в Тюнгюлю», «как записаться»</span>`;
+  }
+
+  if(/овз|инвалид|особ(ые|ых) (потреб|возмож)|ограниченн/.test(q)){
+    const dist = PROGRAMS.filter(p => p.format === 'Дистанционно' || p.format === 'Смешанно').slice(0, 3);
+    return `Для детей с ОВЗ платформа подбирает доступные форматы — дистанционные и смешанные программы, а также занятия с психолого-педагогическим сопровождением ЦПМСС.
+      ${dist.map(miniProgram).join('')}`;
+  }
+
+  if(/документ|справк|бумаг|заявлен|что нужн|какие документ/.test(q)){
+    return `📄 <strong>Для записи нужны:</strong>
+      <span class="mini">1) заявление родителя (законного представителя); 2) свидетельство о рождении или паспорт ребёнка; 3) СНИЛС; 4) согласие на обработку персональных данных; 5) медицинская справка — для спортивных секций.</span>
+      Заявление можно подать прямо здесь, в личном кабинете, или через ЕАИС «Навигатор» — данные синхронизируются автоматически.`;
+  }
+
+  if(/как записа|записаться|запись|записат/.test(q)){
+    return `✍️ <strong>Записаться просто:</strong>
+      <span class="mini">1. Найдите программу в каталоге или через умный подбор.<br>
+      2. Нажмите «Записаться» в карточке программы.<br>
+      3. Заявка появится в личном кабинете — там же можно отслеживать посещения и достижения.<br>
+      4. Данные автоматически уходят в ЕАИС «Навигатор».</span>
+      Хотите, подберу программу? Напишите возраст и интересы ребёнка.`;
+  }
+
+  if(/расписан|когда зан|во сколько|график/.test(q)){
+    const list = (cats.length ? PROGRAMS.filter(p => cats.includes(p.cat)) : PROGRAMS).slice(0, 4);
+    return `🗓 <strong>Расписание занятий:</strong>${list.map(miniProgram).join('')}`;
+  }
+
+  if(/стоим|бесплат|цена|платн|сколько сто/.test(q)){
+    return `💰 Большинство программ улуса — <strong>бесплатные</strong> (за счёт муниципального задания). В каталоге у каждой программы указана стоимость. Сейчас бесплатных программ: ${PROGRAMS.filter(p => p.price === 'Бесплатно').length} из ${PROGRAMS.length}.`;
+  }
+
+  if(/свободн|мест|набор|есть ли места/.test(q)){
+    const free = PROGRAMS.filter(p => p.free > 0).sort((a,b) => b.free - a.free).slice(0, 4);
+    return `🪑 <strong>Больше всего свободных мест:</strong>${free.map(miniProgram).join('')}`;
+  }
+
+  if(/карта|где наход|адрес|далеко|доехать|транспорт/.test(q)){
+    return `🗺️ Откройте раздел <strong>«Карта»</strong> — там все организации и кружки по сёлам улуса: Майя, Нижний Бестях, Павловск, Хаптагай, Тюнгюлю, Беке, Табага, Техтюр.
+      Можно включить фильтры по направлению и возрасту и сразу увидеть, что доступно рядом, а что — только онлайн.
+      <button class="btn" data-page="map">Открыть карту</button>`;
+  }
+
+  if(/контакт|телефон|позвон|написать|почт/.test(q)){
+    return `📞 <strong>Контакты:</strong>
+      <span class="mini">Управление образования Мегино-Кангаласского улуса · ЦДОД (с. Майя) · ЦДЮТТ (с. Майя, п. Нижний Бестях) · УПЦ · ЦПМСС.<br>
+      Телефон приёмной: +7 (41143) 4-XX-XX · Единый портал: uuo-mk.ru</span>`;
+  }
+
+  if(/траектор|профориент|куда поступ|будущ|професси|портфолио/.test(q)){
+    return `🧭 <strong>Пример траектории развития:</strong>
+      <span class="mini">5–7 лет: «Цифровой мир» → «Робототехника для начинающих» → «Анимация»<br>
+      8–10 лет: «Алгоритмика» → «Scratch» → «3D-моделирование»<br>
+      11–13 лет: «Python» → «Мобильная разработка» → «Разработка игр»<br>
+      14–16 лет: «Веб-разработка» → «ИИ» → «Кибербезопасность» → конкурс «Моя профессия — ИТ»<br>
+      17–18 лет: «Анализ данных» → «Разработка цифрового продукта» → хакатон и портфолио</span>
+      Запишитесь на программу — и платформа сама покажет следующий шаг в личном кабинете.`;
+  }
+
+  if(age !== null || cats.length || village){
+    const prefs = {age, cats, village};
+    const scored = PROGRAMS
+      .map(p => ({p, s: scoreProgram(p, prefs)}))
+      .filter(x => x.s > 20)
+      .sort((a,b) => b.s - a.s)
+      .slice(0, 3);
+
+    if(scored.length){
+      const intro = [];
+      if(age) intro.push('возраст ' + age + ' лет');
+      if(cats.length) intro.push('интересы: ' + cats.join(', ').toLowerCase());
+      if(village) intro.push('село ' + village);
+      return `🤖 Подобрал варианты${intro.length ? ' по запросу (' + intro.join('; ') + ')' : ''}:${
+        scored.map(x => miniProgram(x.p)).join('')}
+        <span class="mini">Хотите точнее — пройдите умный подбор из 5 вопросов.</span>
+        <button class="btn" data-page="select">Пройти подбор</button>`;
+    }
+    return `Пока не нашёл подходящих программ по этим условиям 😔
+      Попробуйте изменить возраст или направление, либо посмотрите дистанционные программы — они доступны из любого села улуса.
+      <button class="btn" data-page="catalog">Открыть каталог</button>`;
+  }
+
+  if(/спасибо|благодар|керек/.test(q)){
+    return `Всегда пожалуйста! 😊 Если появятся вопросы о кружках, записи или расписании — я рядом.`;
+  }
+
+  return `Я ИИ-помощник «СахаКружок» и умею:
+    <span class="mini">• подбирать кружки по возрасту, интересам и селу;<br>
+    • рассказывать о расписании, педагогах и свободных местах;<br>
+    • объяснять, как записаться и какие нужны документы;<br>
+    • строить образовательную траекторию и подсказывать следующий шаг;<br>
+    • подбирать доступные форматы для детей с ОВЗ.</span>
+    Напишите, например: «подбери кружок для 10 лет», «что есть в Майе», «сколько стоит» или «как записаться».`;
+}
+
+const QUICK_CHIPS = [
+  'Подбери кружок для 9 лет',
+  'Что есть в Тюнгюлю?',
+  'Свободные места',
+  'Как записаться?',
+  'Сколько стоит?',
+  'Робототехника',
+  'Программы для ОВЗ',
+  'Как построить траекторию?'
+];
+
+function addMsg(html, who){
+  const body = $('#aiBody');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ' + who;
+  div.innerHTML = html;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function aiSend(text){
+  const t = text.trim();
+  if(!t) return;
+  addMsg(t.replace(/</g,'&lt;'), 'me');
+  $('#aiText').value = '';
+  setTimeout(() => addMsg(aiReply(t), 'bot'), 320);
+}
+
+function openAi(){
+  $('#aiPanel').classList.add('open');
+  $('#aiFab').style.display = 'none';
+  if(!$('#aiBody').children.length){
+    addMsg('Салам! 👋 Я ИИ-помощник платформы <strong>«СахаКружок»</strong>.<br>Помогу найти кружок, расскажу о расписании, свободных местах и записи. Чем помочь?', 'bot');
+  }
+}
+function closeAi(){
+  $('#aiPanel').classList.remove('open');
+  $('#aiFab').style.display = 'flex';
+}
+
+function initAi(){
+  $('#aiChips').innerHTML = QUICK_CHIPS.map(c => `<button class="chip" data-chip="${c}">${c}</button>`).join('');
+  document.addEventListener('click', e => {
+    const chip = e.target.closest('[data-chip]');
+    if(chip) aiSend(chip.dataset.chip);
+  });
+  $('#aiFab').onclick = openAi;
+  $('#aiClose').onclick = closeAi;
+  $('#heroAi').onclick = openAi;
+  $('#homeAi').onclick = openAi;
+  $('#aiForm').addEventListener('submit', e => {
+    e.preventDefault();
+    aiSend($('#aiText').value);
+  });
+}
+
+/* ==================================================================
+   14. ИНИЦИАЛИЗАЦИЯ
+   ================================================================== */
+function init(){
+  initCatalogFilters();
+  initMapFilters();
+  initAi();
+
+  renderCatalog();
+  renderMap();
+  renderHome();
+  renderQuiz();
+  renderCabinet();
+  renderDashboard();
+
+  goPage('home');
+}
+init();
+</script>
+</body>
+</html>
